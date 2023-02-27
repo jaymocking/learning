@@ -9,7 +9,7 @@ jobs:
       IMAGE_NAME: fastifyrestlearn
       CLUSTER_NAME: luffy-k8s
       RESOURCE_GROUP: deletethislater
-      IMAGE_FULL_NAME: fastifyrestlearn:bc95e2865696f69abff71ee5014c7d17e04f77c8
+      IMAGE_FULL_NAME: hakuna.azurecr.io/fastifyrestlearn:bc95e2865696f69abff71ee5014c7d17e04f77c8
 
     steps:      
       - name: Checkout

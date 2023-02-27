@@ -28,9 +28,6 @@ spec:
       containers:
         - name: fastifyrestlearn
           image: hakuna.azurecr.io/fastifyrestlearn:0.0.1
-          imagePullPolicy: Always
-          envFrom:
-            - configMapRef:
-                name: fastifyrestlearn-config
+          imagePullPolicy: Always          
           ports:
             - containerPort: 3000

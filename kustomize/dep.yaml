@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastifyrestlearn
+  labels:
+    app: fastifyrestlearn
+spec:
+  ports:
+    - port: 3000
+      name: http
+  selector:
+    app: fastifyrestlearn
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastifyrestlearn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastifyrestlearn
+  template:
+    metadata:
+      labels:
+        app: fastifyrestlearn
+    spec:
+      containers:
+        - name: fastifyrestlearn
+          image: fastifyrestlearn:0.0.1
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: fastifyrestlearn-config
+          ports:
+            - containerPort: 3000

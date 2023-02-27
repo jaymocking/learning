@@ -53,4 +53,6 @@ jobs:
           action: deploy
           manifests:
             k8s-dep.yml
+          images: '${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}'
+          imagepullsecrets: 'hakuna-acr'
             

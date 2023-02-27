@@ -60,7 +60,7 @@ jobs:
           action: deploy
           manifests: ${{ steps.bake.outputs.manifestsBundle }}
             # k8s-dep.yml          
-          images: |
+          containers: |
             ${{env.IMAGE_FULL_NAME}}
           # images: '${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'
           imagepullsecrets: 'hakuna-acr'

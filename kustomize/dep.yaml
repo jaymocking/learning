@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: fastifyrestlearn
-          image: fastifyrestlearn:0.0.1
+          image: hakuna.azurecr.io/fastifyrestlearn:0.0.1
           imagePullPolicy: Always
           envFrom:
             - configMapRef:

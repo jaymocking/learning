@@ -21,8 +21,8 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ${{ secrets.ACR_ENDPOINT }}
-          username: ${{ secrets.AZ_UR }}
-          password: ${{ secrets.AZ_PD }}
+          username: ${{ secrets.AZR_UR }}
+          password: ${{ secrets.AZR_PD }}
       
       - name: Build and push
         run:

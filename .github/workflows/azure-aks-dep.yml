@@ -29,7 +29,7 @@ jobs:
       #   run: |
       #     docker build . -t ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
       #     docker push ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-            
+
       - name: Login to Azure
         id: azure-login
         uses: azure/login@v1
@@ -40,8 +40,8 @@ jobs:
         id: set-context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: ${{ env.CLUSTER_NAME }}
-          cluster-name: ${{ env.RESOURCE_GROUP }}
+          resource-group: ${{ env.RESOURCE_GROUP }}
+          cluster-name: ${{ env.CLUSTER_NAME }}
 
       - name: Deploy to AKS
         id: deploy-aks

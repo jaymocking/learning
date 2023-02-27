@@ -44,13 +44,13 @@ jobs:
           resource-group: ${{ env.RESOURCE_GROUP }}
           cluster-name: ${{ env.CLUSTER_NAME }}
 
-      # - name: Bake deployment
-      #   uses: azure/k8s-bake@v2
-      #   with:
-      #     renderEngine: "kustomize"
-      #     kustomizationPath: ${{ env.KUSTOMIZE_PATH }}
-      #     kubectl-version: latest
-      #   id: bake
+      - name: Bake deployment
+        uses: azure/k8s-bake@v2
+        with:
+          renderEngine: "kustomize"
+          kustomizationPath: ${{ env.KUSTOMIZE_PATH }}
+          kubectl-version: latest
+        id: bake
 
       - name: Deploy to AKS
         id: deploy-aks
@@ -58,9 +58,8 @@ jobs:
         with:
           namespace: 'default'
           action: deploy
-          manifests: 
-            k8s-dep.yml
-          # ${{ steps.bake.outputs.manifestsBundle }}
+          manifests: ${{ steps.bake.outputs.manifestsBundle }}
+            # k8s-dep.yml          
           images: |
             ${{env.IMAGE_FULL_NAME}}
           # images: '${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'

@@ -16,20 +16,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
       
-      # - name: Login to GitHub Container Registry
-      #   uses: docker/login-action@v2
-      #   with:
-      #     registry: ${{ secrets.ACR_ENDPOINT }}
-      #     username: ${{ secrets.AZR_UR }}
-      #     password: ${{ secrets.AZR_PD }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ secrets.ACR_ENDPOINT }}
+          username: ${{ secrets.AZR_UR }}
+          password: ${{ secrets.AZR_PD }}
       
-      # - name: Build and push
-      #   run: |
-      #     docker build . -t ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-      #     docker push ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+      - name: Build and push
+        run: |
+          docker build . -t ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          docker push ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
       - name: Login to Azure
         id: azure-login
@@ -44,24 +44,15 @@ jobs:
           resource-group: ${{ env.RESOURCE_GROUP }}
           cluster-name: ${{ env.CLUSTER_NAME }}
 
-      - name: Bake deployment
-        uses: azure/k8s-bake@v2
-        with:
-          renderEngine: "kustomize"
-          kustomizationPath: ${{ env.KUSTOMIZE_PATH }}
-          kubectl-version: latest
-        id: bake
-
       - name: Deploy to AKS
         id: deploy-aks
         uses: Azure/k8s-deploy@v4
         with:
           namespace: 'default'
           action: deploy
-          manifests: ${{ steps.bake.outputs.manifestsBundle }}
-            # k8s-dep.yml          
+          manifests: 
+            k8s-dep.yml                    
           images: |
-            ${{ env.IMAGE_FULL_NAME }} 
-          # images: '${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'
+            '${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'
           imagepullsecrets: 'hakuna-acr'
             

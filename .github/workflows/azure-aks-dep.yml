@@ -53,6 +53,6 @@ jobs:
           manifests: 
             k8s-dep.yml                    
           images: |
-            '${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'
+            hakuna.azurecr.io/fastifyrestlearn:${{ github.sha }}
           imagepullsecrets: 'hakuna-acr'
             

@@ -35,4 +35,4 @@ spec:
           ports:
             - containerPort: 3000
       imagePullSecrets:
-        - name: hmport
+        - name: hakuna-acr

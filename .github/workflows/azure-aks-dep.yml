@@ -43,7 +43,7 @@ jobs:
       
       - name: set AKS context
         id: set-context
-        uses: azure/aks-st-context@v3
+        uses: azure/aks-set-context@v3
         with: 
           creds: ${{ Secrets.AZURE_CREDENTIALS }}
           cluster-name: ${{ env.CLUSTER_NAME }}

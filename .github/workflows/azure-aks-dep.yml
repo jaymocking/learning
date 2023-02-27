@@ -46,8 +46,8 @@ jobs:
         id: set-context
         uses: azure/aks-st-context@v3
         with: 
-          creds: ${{ Secrets.AZURE_CREDENTIALS} }
-          cluster-name: ${{ env.CLUSTER NAME}}
+          creds: ${{ Secrets.AZURE_CREDENTIALS }}
+          cluster-name: ${{ env.CLUSTER_NAME }}
           resource-group: ${{ env.RESOURCE_GROUP}}
 
       - name: Deploy to AKS

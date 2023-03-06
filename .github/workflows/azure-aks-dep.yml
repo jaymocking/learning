@@ -1,16 +1,16 @@
 name: Docker
 
-on: [push]
+on:
+  push:
+    tags: ["v*.*.*"]
   
 jobs:
   docker:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: fastifyrestlearn
-      CLUSTER_NAME: luffy-k8s
-      RESOURCE_GROUP: deletethislater
-      IMAGE_FULL_NAME: hakuna.azurecr.io/fastifyrestlearn:bc95e2865696f69abff71ee5014c7d17e04f77c8
-      KUSTOMIZE_PATH: kustomize
+      IMAGE_NAME: tvspgm/cms-ui
+      CLUSTER_NAME: tvsmazpartspgmaksdev01
+      RESOURCE_GROUP: tvsmazpartspgmrsgdev01
 
     steps:      
       - name: Checkout
@@ -23,8 +23,8 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ${{ secrets.ACR_ENDPOINT }}
-          username: ${{ secrets.AZR_UR }}
-          password: ${{ secrets.AZR_PD }}
+          username: ${{ secrets.AZ_UR }}
+          password: ${{ secrets.AZ_PD }}
       
       - name: Build and push
         run: |
@@ -51,8 +51,8 @@ jobs:
           namespace: 'default'
           action: deploy
           manifests: 
-            k8s-dep.yml                    
+            k8s/cms-ui.yml                   
           images: |
-            hakuna.azurecr.io/fastifyrestlearn:${{ github.sha }}
-          imagepullsecrets: 'hakuna-acr'
+            tvsmazpartspgmacrdev01.azurecr.io/tvspgm/cms-ui:${{ github.sha }}
+          imagepullsecrets: 'tvspgm-acr'
             

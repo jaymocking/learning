@@ -8,9 +8,9 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: tvspgm/cms-ui
-      CLUSTER_NAME: tvsmazpartspgmaksdev01
-      RESOURCE_GROUP: tvsmazpartspgmrsgdev01
+      IMAGE_NAME: learning/node
+      CLUSTER_NAME: mocking_jay
+      RESOURCE_GROUP: deletethislater
 
     steps:      
       - name: Checkout
@@ -51,8 +51,8 @@ jobs:
           namespace: 'default'
           action: deploy
           manifests: 
-            k8s/cms-ui.yml                   
+            k8s-dep.yml                   
           images: |
-            tvsmazpartspgmacrdev01.azurecr.io/tvspgm/cms-ui:${{ github.sha }}
-          imagepullsecrets: 'tvspgm-acr'
+            hakuna.azurecr.io/learning/node:${{ github.sha }}
+          imagepullsecrets: 'hakuna-acr'
             
